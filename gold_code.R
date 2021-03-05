@@ -2,11 +2,8 @@ library(ggplot2)
 library(plotly)
 library(fitdistrplus)
 
-# setting working directory to where the gold prices file is stored
-setwd("C:/Users/whash123/Desktop/Work/Portfolio/Gold Mine Valuation")
-
 # reading the gold prices csv into R
-gold <- read.csv("C:/Users/whash123/Desktop/Work/Portfolio/Gold Mine Valuation/gold_prices.csv")
+gold <- read.csv("gold_prices.csv")
 
 # taking just the date and USD closing prices for gold
 gold <- gold[, c(1,2)]
@@ -18,7 +15,7 @@ names(gold) <- c("Date", "Closing Price")
 gold$Date <- as.Date(gold$Date, format = "%m/%d/%Y")
 
 # creating a chart to show how gold prices have changed over time
-a <- ggplot(gold, aes(x = gold$Date, y = gold$`Closing Price`)) + 
+a <- ggplot(gold, aes(x = Date, y = `Closing Price`)) + 
             geom_point() + 
             geom_line() +
             ggtitle("Gold Monthly Prices") + 
@@ -29,7 +26,7 @@ ggplotly(a)
 
 # creating histogram of gold prices
 b <- ggplot(gold) + 
-            aes(gold$`Closing Price`) + 
+            aes(`Closing Price`) + 
             geom_histogram(binwidth = 25, color = "black", fill = "white") +
             ylab("Frequency") +
             xlab("Price of Gold") +
